@@ -12,9 +12,6 @@ def plot_df_count(df, column='diagnosis'):
     df_plot.plot.bar(df_plot)
     plt.show()
 
-
-target = PPImage(config.TARGET_IMAGE)
-
 def preprocess_image(row):
     image = PPImage()
     imgName = f'{row.id_code}.{config.IMAGE_EXTENSION}'
@@ -61,6 +58,9 @@ for i in range(len(aptos)):
 
 '''
 
+
+target = PPImage(config.TARGET_IMAGE)
+
 google = pd.read_csv(config.CSV_PATH)
 os.makedirs(config.HIST_MATCH_PATH, exist_ok=True)
 os.makedirs(config.HIST_EQL_PATH, exist_ok=True)
@@ -73,7 +73,7 @@ for i in range(len(google)):
     row = google.iloc[i]
     img = f'{row.id_code}.{config.IMAGE_EXTENSION}'
     if img in existing and img in existing2:
-        pass
+        continue
     print(i, "Processing: ", row.id_code)
     done = preprocess_image(row)
     if not done:
